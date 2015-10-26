@@ -7,6 +7,10 @@ provisioner:
 
 platforms:
   - name: centos-7.1
+    driver:
+      customize:
+        memory: 350
+
 
 suites:
   - name: default

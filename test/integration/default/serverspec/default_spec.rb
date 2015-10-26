@@ -6,4 +6,9 @@ describe 'jenkins-job::default' do
     it { should be_enabled }
     it { should be_running }
   end
+
+  it "installs git" do
+    expect(command 'which git').to return_stdout /.*\/bin\/git.*/
+  end
+  
 end
