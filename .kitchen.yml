@@ -6,10 +6,14 @@ provisioner:
   name: chef_solo
 
 platforms:
+#  - name: centos-7.1-lxc
+#    box: frensjan/centos-7-64-lxc
   - name: centos-7.1
     driver:
-      customize:
-        memory: 350
+      network:
+        - ["forwarded_port", {guest: 8080, host: 8080}]
+      memory: 768
+
 
 
 suites:

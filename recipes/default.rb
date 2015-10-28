@@ -10,34 +10,34 @@
 include_recipe 'jenkins::java'
 include_recipe 'jenkins::master'
 include_recipe 'python'
+include_recipe "jenkins-job-builder"
+#include_recipe "python::pip"
+include_recipe 'git'
 jenkins_plugin "scm-api"
 jenkins_plugin "git-client"
 jenkins_plugin "git"
+jenkins_plugin 'job-dsl'
 
-
-yaml = value_for_platform_family({
-  ['debian'] => 'libyaml-dev',
-  ['rhel','fedora','suse'] => 'libyaml-devel'
-})
+python_pip "wheel" do
+  action :install
+end
 
 if platform_family?('rhel')
   include_recipe 'yum-epel'
 end
 
-package yaml do
+yum_package 'libyaml-devel' do
   action :install
 end
 
-unless node['jenkins_job_builder']['from_source']
-  python_pip 'jenkins-job-builder' do
-    version node['jenkins_job_builder']['version']
-    action :install
-  end
-else
-  python_pip node['jenkins_job_builder']['repo'] do
-    action :install
-  end
+yum_package 'rpm-build' do
+	action :install
 end
+
+jenkins_plugin 'job-dsl' do 
+	notifies :restart, 'service[jenkins]', :immediately	
+end
+
 
 directory '/etc/jenkins_jobs' do
   owner node['jenkins_job_builder']['user']
@@ -55,4 +55,12 @@ template '/etc/jenkins_jobs/jenkins_jobs.ini' do
     :password => node['jenkins_job_builder']['password'],
     :url => node['jenkins_job_builder']['url']
   })
+end
+
+template '/etc/jenkins_jobs/jenkins-job-builder.yaml' do
+  source "jenkins-job-builder.yaml"
+end
+
+build_jenkins_job 'jenkins-job-builder' do
+  job_config '/etc/jenkins_jobs/'
 end
