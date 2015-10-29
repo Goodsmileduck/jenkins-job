@@ -1,5 +1,18 @@
+[job_builder]
+ignore_cache=True
+keep_descriptions=False
+#include_path=.:scripts:~/git/
+recursive=False
+exclude=.*:manual:./development
+allow_duplicates=False
+
 [jenkins]
-user=<%= @username %>
-password=<%= @password %>
-url=<%= @url %>
-external_url=<%= @external_url %>
+user=jenkins
+password=
+url=http://localhost:8080
+query_plugins_info=False
+##### This is deprecated, use job_builder section instead
+#ignore_cache=True
+
+[hipchat]
+authtoken=dummy

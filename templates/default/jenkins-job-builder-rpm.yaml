@@ -1,0 +1,11 @@
+
+- job:
+    name: jenkins-job-builder-rpm
+    scm:
+      - git:
+         url: https://github.com/Pylons/pyramid
+         branches:
+          - origin/master
+    builders:
+      - shell: |
+          python setup.py sdist_rpm

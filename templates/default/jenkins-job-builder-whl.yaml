@@ -1,6 +1,6 @@
 
 - job:
-    name: jenkins-job-builder
+    name: jenkins-job-builder-whl
     scm:
       - git:
          url: https://github.com/Pylons/pyramid
@@ -8,4 +8,4 @@
           - origin/master
     builders:
       - shell: |
-          echo "building"
+          python setup.py sdist_wheel

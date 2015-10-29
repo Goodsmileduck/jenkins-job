@@ -6,13 +6,20 @@ provisioner:
   name: chef_solo
 
 platforms:
-#  - name: centos-7.1-lxc
-#    box: frensjan/centos-7-64-lxc
-  - name: centos-7.1
+  - name: centos-7-64-lxc
     driver:
+      box: frensjan/centos-7-64-lxc
+      box_url: frensjan/centos-7-64-lxc
+      provider: lxc
       network:
         - ["forwarded_port", {guest: 8080, host: 8080}]
-      memory: 768
+      #don't forget to run 'vagrant lxc sudoers'
+
+#  - name: centos-7.1
+#    driver:
+#      network:
+#        - ["forwarded_port", {guest: 8080, host: 8080}]
+#      memory: 768
 
 
 
