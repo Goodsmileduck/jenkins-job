@@ -1,4 +1,5 @@
-
+default[:jenkins_job][:git][:name] = "jenkins"
+default[:jenkins_job][:git][:email] = "jenkins@example.com"
 default['jenkins_job_builder']['user'] = 'nobody'
 default['jenkins_job_builder']['group'] = value_for_platform_family(
   ['debian'] => "nogroup",

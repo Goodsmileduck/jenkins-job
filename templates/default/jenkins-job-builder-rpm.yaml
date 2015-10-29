@@ -8,4 +8,4 @@
           - origin/master
     builders:
       - shell: |
-          python setup.py sdist_rpm
+          python setup.py bdist_rpm

@@ -71,6 +71,12 @@ template '/etc/jenkins_jobs/jenkins_jobs.ini' do
   })
 end
 
+template "/var/lib/jenkins/hudson.plugins.git.GitSCM.xml" do
+	source "hudson.plugins.git.GitSCM.xml.erb"
+	owner "jenkins"
+	group "jenkins"
+end
+
 template '/etc/jenkins_jobs/jenkins-job-builder-rpm.yaml' do
   source "jenkins-job-builder-rpm.yaml"
 end
